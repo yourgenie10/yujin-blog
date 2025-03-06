@@ -25,6 +25,6 @@
     "href": "posts/post-with-code/index.html",
     "title": "Post With Code",
     "section": "",
-    "text": "This is a post with executable code."
+    "text": "This is a post with executable code.\n\nimport numpy as np\n\na = np.array(10)\na\n\narray(10)"
   }
 ]
