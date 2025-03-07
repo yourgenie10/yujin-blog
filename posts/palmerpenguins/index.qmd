@@ -1,0 +1,211 @@
+---
+title: "Palmerpenguins Data Analysis"
+author: "조익현, 정의주, 윤현재, 이유진"
+date: "2025-03-07"
+categories: [news, code, analysis]
+image: "palmerpenguins.png"
+---
+
+![](palmerpenguins.png){: width = 10% height=10%}
+
+
+### Intro
+Github에서 제공하는 Palmerpenguis 데이터를 활용하여 펭귄별 특징을 알아보았습니다.
+
+
+### 결과 요약
+- Adelie: 부리 길이 짧음, 부리 깊이 보통, 날개 길이 짧음, 몸무게 가벼움
+- Chinstrap: 부리 길이 가장 김, 부리 깊이 보통, 날개 길이 중간, 몸무게 중간
+- Gentoo: 부리 길이 김, 부리 깊이 가장 얇음, 날개 길이 가장 긺, 몸무게 가장 무거움
+
+
+# 분석 데이터
+##### 데이터 로드
+```{python}
+import numpy as np
+import pandas as pd
+
+from palmerpenguins import load_penguins
+penguins = load_penguins()
+
+```
+
+##### 1. NaN 값 확인 및 제거
+
+```{python}
+penguins.isna().sum() # NaN 값이 어디에 있는지 확인
+```
+
+각 항목별 NaN값이 있는 것을 확인하였습니다. 원할한 분석을 위해 NaN을 0과 X로 수정하였습니다
+
+```{python}
+penguins.loc[penguins["bill_length_mm"].isna(), "bill_length_mm"] = 0
+penguins.loc[penguins["bill_depth_mm"].isna(), "bill_depth_mm"] = 0
+penguins.loc[penguins["flipper_length_mm"].isna(), "flipper_length_mm"] = 0
+penguins.loc[penguins["body_mass_g"].isna(), "body_mass_g"] = 0
+penguins.loc[penguins["sex"].isna(), "sex"] = "X"
+
+```
+
+```{python}
+penguins.isna().sum() # NaN 값 수정 확인
+
+```
+
+# 1. 각 종별 펭귄수 구하기
+
+```{python}
+species_counts = {}
+
+for species in penguins["species"].unique(): 
+    species_counts[species] = penguins.loc[penguins["species"] == species, "species"].shape[0]
+
+```
+
+###### 결과 값
+| Species   | Count |
+|-----------|-------|
+| Adelie    | 152   |
+| Gentoo    | 124   |
+| Chinstrap | 68    |
+
+### 해당 결과를 통해 Adelie(152), Gentoo(124), Chinstrap(68) 순으로 펭귄이 많은 것을 알 수 있습니다.
+
+# 2-1. 각 섬별 펭귄수 구하기
+
+```{python}
+island_list = ["Biscoe", "Dream", "Torgersen"]
+island_counts = {}
+
+for island in island_list:
+    island_counts[island] = penguins.loc[penguins["island"] == island, "island"].shape[0]
+```
+
+###### 결과 값
+| Island    | count |
+|-----------|-------|
+| Biscoe    | 168   |
+| Dream     | 124   |
+| Torgersen | 52    |
+
+### 해당 결과를 통해 Biscoe(168), Dream(124), Torgersen(52) 순으로 펭귄이 많은 것을 알 수 있습니다.
+
+# 2-2. 각 섬별 펭귄 종류 구하기
+
+```{python}
+island_species_counts = {}
+
+
+for island in penguins["island"].unique():  
+    island_species_counts[island] = {}
+    
+    # 각 종별 반복
+    for species in penguins["species"].unique():  
+        count = penguins.loc[(penguins["island"] == island) & (penguins["species"] == species), "species"].shape[0]
+        island_species_counts[island][species] = count
+
+```
+
+| Island    | Adelie | Chinstrap | Gentoo |
+|-----------|--------|-----------|--------|
+| Biscoe    | 40     | 0         | 20     |
+| Dream     | 30     | 10        | 15     |
+| Torgersen | 25     | 5         | 0      |
+
+### Adelie는 모든 지역(Torgersen(52), Biscoe(44), Dream(52))에 서식하고 있어 서식지가 분포되어 있는 것을 알 수 있습니다.
+
+### Gentoo와 Chinstrap은 각 Biscoe와 Dream에만 서식하는 것을 알 수 있습니다.
+
+# 3-1. 부리 길이 구하기
+
+```{python}
+bill_length_max = penguins["bill_length_mm"].max()
+bill_length_min = penguins.loc[penguins["bill_length_mm"] > 0, "bill_length_mm"].min()
+bill_length_mean = penguins["bill_length_mm"].mean() 
+```
+
+##### 결과 값
+
+| Metric           | Value(mm) |
+|------------------|-----------|
+| Max Bill Length  | 59.6      |
+| Min Bill Length  | 32.1      |
+| Mean Bill Length | 43.6      |
+
+### 해당 결과를 통해 전체 펭귄 부리의 최대값(59.6), 최소값(32.1), 평균값(43.6)을 알 수 있습니다.
+
+# 3-2. 펭귄별 부리 길이 구하기
+
+```{python}
+species_bill_length = {}
+
+for species in penguins["species"].unique(): 
+    species_bill_length[species] = {
+        "max": penguins.loc[penguins["species"] == species, "bill_length_mm"].max(),
+        "min": penguins.loc[(penguins["species"] == species) & (penguins["bill_length_mm"] > 0), "bill_length_mm"].min(),
+        "mean": penguins.loc[penguins["species"] == species, "bill_length_mm"].mean()
+    }
+```
+###### 결과 값
+| Species   | Max Bill Length | Min Bill Length | Mean Bill Length |
+|-----------|----------------|-----------------|------------------|
+| Adelie    | 46.0           | 32.1            | 38.54           |
+| Gentoo    | 59.6           | 40.9            | 47.12           |
+| Chinstrap | 58.0           | 40.9            | 48.83           |
+
+
+### 각 종의 부리 길이 평균값을 기준으로 부리가 가장 긴 종을 다음과 같이 구했습니다.
+### Chinstrap(48.8) \> Gentoo(47.1) \> Adelie(38.5)
+
+# 4-1. 몸무게 구하기
+
+```{python}
+body_mass_max = penguins["body_mass_g"].max()
+body_mass_min = penguins.loc[penguins["body_mass_g"] > 0, "body_mass_g"].min()
+body_mass_mean = penguins["body_mass_g"].mean()
+```
+
+##### 결과 값
+
+| Metric         | Value(g) |
+|----------------|----------|
+| Max Body Mass  | 6300.0   |
+| Min Body Mass  | 2700.0   |
+| Mean Body Mass | 4177.33  |
+
+
+### 해당 결과를 통해 전체 펭귄 몸무게게 최대값(6300), 최소값(2700), 평균값(4177)을 알 수 있습니다.
+
+# 4-2. 펭귄별 몸무게 구하기
+
+```{python}
+species_bill_length = {}
+
+species_body_mass = {}
+
+for species in penguins["species"].unique():  # 각 종별 반복
+    species_body_mass[species] = {
+        "max": penguins.loc[penguins["species"] == species, "body_mass_g"].max(),
+        "min": penguins.loc[(penguins["species"] == species) & (penguins["body_mass_g"] > 0), "body_mass_g"].min(),
+        "mean": penguins.loc[penguins["species"] == species, "body_mass_g"].mean()
+    }
+
+```
+
+
+##### 결과 값
+| Species   | Max Body Mass(g) | Min Body Mass(g) | Mean Body Mass(g) |
+|-----------|---------------|---------------|----------------|
+| Adelie    | 4775.0        | 2850.0        | 3676.32        |
+| Gentoo    | 6300.0        | 3950.0        | 5035.08        |
+| Chinstrap | 4800.0        | 2700.0        | 3733.09        |
+
+
+### 각 종의 몸무게 평균값을 기준으로 무게가 가장 무거운 종을 다음과 같이 구했습니다.
+
+### Gentoo(5035) \> Chinstrap(3733.09) \> Adelie(3676.32)
+
+
+##### 이번 분석은 가중치 없이 단순히 각 항목의 평균값을 비교하여 판단했습니다.
+
+##### 추후 전체 값과 종별 특성을 비교하는 값을 작성할 예정입니다.
