@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="조익현, 정의주, 윤현재, 이유진">
+<meta name="dcterms.date" content="2025-03-07">
+
+<title>Palmerpenguins Data Analysis – 우당탕당 Qmd 도전기</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ddd961a2510921635943dfbbd19534c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">우당탕당 Qmd 도전기</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Palmerpenguins Data Analysis</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">news</div>
+    <div class="quarto-category">code</div>
+    <div class="quarto-category">analysis</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>조익현, 정의주, 윤현재, 이유진 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 7, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="palmerpenguins.png" class="img-fluid">{: width = 10% height=10%}</p>
+<section id="intro" class="level3">
+<h3 class="anchored" data-anchor-id="intro">Intro</h3>
+<p>Github에서 제공하는 Palmerpenguis 데이터를 활용하여 펭귄별 특징을 알아보았습니다.</p>
+</section>
+<section id="결과-요약" class="level3">
+<h3 class="anchored" data-anchor-id="결과-요약">결과 요약</h3>
+<ul>
+<li>Adelie: 부리 길이 짧음, 부리 깊이 보통, 날개 길이 짧음, 몸무게 가벼움</li>
+<li>Chinstrap: 부리 길이 가장 김, 부리 깊이 보통, 날개 길이 중간, 몸무게 중간</li>
+<li>Gentoo: 부리 길이 김, 부리 깊이 가장 얇음, 날개 길이 가장 긺, 몸무게 가장 무거움</li>
+</ul>
+</section>
+<section id="분석-데이터" class="level1">
+<h1>분석 데이터</h1>
+<section id="데이터-로드" class="level5">
+<h5 class="anchored" data-anchor-id="데이터-로드">데이터 로드</h5>
+<div id="142bac09" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="nan-값-확인-및-제거" class="level5">
+<h5 class="anchored" data-anchor-id="nan-값-확인-및-제거">1. NaN 값 확인 및 제거</h5>
+<div id="e0a449e6" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins.isna().<span class="bu">sum</span>() <span class="co"># NaN 값이 어디에 있는지 확인</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="57">
+<pre><code>species               0
+island                0
+bill_length_mm        2
+bill_depth_mm         2
+flipper_length_mm     2
+body_mass_g           2
+sex                  11
+year                  0
+dtype: int64</code></pre>
+</div>
+</div>
+<p>각 항목별 NaN값이 있는 것을 확인하였습니다. 원할한 분석을 위해 NaN을 0과 X로 수정하였습니다</p>
+<div id="ada18b93" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"bill_length_mm"</span>].isna(), <span class="st">"bill_length_mm"</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"bill_depth_mm"</span>].isna(), <span class="st">"bill_depth_mm"</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"flipper_length_mm"</span>].isna(), <span class="st">"flipper_length_mm"</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"body_mass_g"</span>].isna(), <span class="st">"body_mass_g"</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"sex"</span>].isna(), <span class="st">"sex"</span>] <span class="op">=</span> <span class="st">"X"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5048138a" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins.isna().<span class="bu">sum</span>() <span class="co"># NaN 값 수정 확인</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<pre><code>species              0
+island               0
+bill_length_mm       0
+bill_depth_mm        0
+flipper_length_mm    0
+body_mass_g          0
+sex                  0
+year                 0
+dtype: int64</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="각-종별-펭귄수-구하기" class="level1">
+<h1>1. 각 종별 펭귄수 구하기</h1>
+<div id="ba152597" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>species_counts <span class="op">=</span> {}</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique(): </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    species_counts[species] <span class="op">=</span> penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"species"</span>].shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="결과-값" class="level6">
+<h6 class="anchored" data-anchor-id="결과-값">결과 값</h6>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Species</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Adelie</td>
+<td>152</td>
+</tr>
+<tr class="even">
+<td>Gentoo</td>
+<td>124</td>
+</tr>
+<tr class="odd">
+<td>Chinstrap</td>
+<td>68</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="해당-결과를-통해-adelie152-gentoo124-chinstrap68-순으로-펭귄이-많은-것을-알-수-있습니다." class="level3">
+<h3 class="anchored" data-anchor-id="해당-결과를-통해-adelie152-gentoo124-chinstrap68-순으로-펭귄이-많은-것을-알-수-있습니다.">해당 결과를 통해 Adelie(152), Gentoo(124), Chinstrap(68) 순으로 펭귄이 많은 것을 알 수 있습니다.</h3>
+</section>
+</section>
+<section id="각-섬별-펭귄수-구하기" class="level1">
+<h1>2-1. 각 섬별 펭귄수 구하기</h1>
+<div id="93a85f0b" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>island_list <span class="op">=</span> [<span class="st">"Biscoe"</span>, <span class="st">"Dream"</span>, <span class="st">"Torgersen"</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>island_counts <span class="op">=</span> {}</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> island <span class="kw">in</span> island_list:</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    island_counts[island] <span class="op">=</span> penguins.loc[penguins[<span class="st">"island"</span>] <span class="op">==</span> island, <span class="st">"island"</span>].shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="결과-값-1" class="level6">
+<h6 class="anchored" data-anchor-id="결과-값-1">결과 값</h6>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Island</th>
+<th>count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Biscoe</td>
+<td>168</td>
+</tr>
+<tr class="even">
+<td>Dream</td>
+<td>124</td>
+</tr>
+<tr class="odd">
+<td>Torgersen</td>
+<td>52</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="해당-결과를-통해-biscoe168-dream124-torgersen52-순으로-펭귄이-많은-것을-알-수-있습니다." class="level3">
+<h3 class="anchored" data-anchor-id="해당-결과를-통해-biscoe168-dream124-torgersen52-순으로-펭귄이-많은-것을-알-수-있습니다.">해당 결과를 통해 Biscoe(168), Dream(124), Torgersen(52) 순으로 펭귄이 많은 것을 알 수 있습니다.</h3>
+</section>
+</section>
+<section id="각-섬별-펭귄-종류-구하기" class="level1">
+<h1>2-2. 각 섬별 펭귄 종류 구하기</h1>
+<div id="c6e762f6" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>island_species_counts <span class="op">=</span> {}</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> island <span class="kw">in</span> penguins[<span class="st">"island"</span>].unique():  </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    island_species_counts[island] <span class="op">=</span> {}</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 각 종별 반복</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique():  </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        count <span class="op">=</span> penguins.loc[(penguins[<span class="st">"island"</span>] <span class="op">==</span> island) <span class="op">&amp;</span> (penguins[<span class="st">"species"</span>] <span class="op">==</span> species), <span class="st">"species"</span>].shape[<span class="dv">0</span>]</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        island_species_counts[island][species] <span class="op">=</span> count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Island</th>
+<th>Adelie</th>
+<th>Chinstrap</th>
+<th>Gentoo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Biscoe</td>
+<td>40</td>
+<td>0</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td>Dream</td>
+<td>30</td>
+<td>10</td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td>Torgersen</td>
+<td>25</td>
+<td>5</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<section id="adelie는-모든-지역torgersen52-biscoe44-dream52에-서식하고-있어-서식지가-분포되어-있는-것을-알-수-있습니다." class="level3">
+<h3 class="anchored" data-anchor-id="adelie는-모든-지역torgersen52-biscoe44-dream52에-서식하고-있어-서식지가-분포되어-있는-것을-알-수-있습니다.">Adelie는 모든 지역(Torgersen(52), Biscoe(44), Dream(52))에 서식하고 있어 서식지가 분포되어 있는 것을 알 수 있습니다.</h3>
+</section>
+<section id="gentoo와-chinstrap은-각-biscoe와-dream에만-서식하는-것을-알-수-있습니다." class="level3">
+<h3 class="anchored" data-anchor-id="gentoo와-chinstrap은-각-biscoe와-dream에만-서식하는-것을-알-수-있습니다.">Gentoo와 Chinstrap은 각 Biscoe와 Dream에만 서식하는 것을 알 수 있습니다.</h3>
+</section>
+</section>
+<section id="부리-길이-구하기" class="level1">
+<h1>3-1. 부리 길이 구하기</h1>
+<div id="bce63287" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>bill_length_max <span class="op">=</span> penguins[<span class="st">"bill_length_mm"</span>].<span class="bu">max</span>()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bill_length_min <span class="op">=</span> penguins.loc[penguins[<span class="st">"bill_length_mm"</span>] <span class="op">&gt;</span> <span class="dv">0</span>, <span class="st">"bill_length_mm"</span>].<span class="bu">min</span>()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>bill_length_mean <span class="op">=</span> penguins[<span class="st">"bill_length_mm"</span>].mean() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="결과-값-2" class="level5">
+<h5 class="anchored" data-anchor-id="결과-값-2">결과 값</h5>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Value(mm)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Max Bill Length</td>
+<td>59.6</td>
+</tr>
+<tr class="even">
+<td>Min Bill Length</td>
+<td>32.1</td>
+</tr>
+<tr class="odd">
+<td>Mean Bill Length</td>
+<td>43.6</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="해당-결과를-통해-전체-펭귄-부리의-최대값59.6-최소값32.1-평균값43.6을-알-수-있습니다." class="level3">
+<h3 class="anchored" data-anchor-id="해당-결과를-통해-전체-펭귄-부리의-최대값59.6-최소값32.1-평균값43.6을-알-수-있습니다.">해당 결과를 통해 전체 펭귄 부리의 최대값(59.6), 최소값(32.1), 평균값(43.6)을 알 수 있습니다.</h3>
+</section>
+</section>
+<section id="펭귄별-부리-길이-구하기" class="level1">
+<h1>3-2. 펭귄별 부리 길이 구하기</h1>
+<div id="9500624f" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>species_bill_length <span class="op">=</span> {}</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique(): </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    species_bill_length[species] <span class="op">=</span> {</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"max"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"bill_length_mm"</span>].<span class="bu">max</span>(),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"min"</span>: penguins.loc[(penguins[<span class="st">"species"</span>] <span class="op">==</span> species) <span class="op">&amp;</span> (penguins[<span class="st">"bill_length_mm"</span>] <span class="op">&gt;</span> <span class="dv">0</span>), <span class="st">"bill_length_mm"</span>].<span class="bu">min</span>(),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"bill_length_mm"</span>].mean()</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="결과-값-3" class="level6">
+<h6 class="anchored" data-anchor-id="결과-값-3">결과 값</h6>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Species</th>
+<th>Max Bill Length</th>
+<th>Min Bill Length</th>
+<th>Mean Bill Length</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Adelie</td>
+<td>46.0</td>
+<td>32.1</td>
+<td>38.54</td>
+</tr>
+<tr class="even">
+<td>Gentoo</td>
+<td>59.6</td>
+<td>40.9</td>
+<td>47.12</td>
+</tr>
+<tr class="odd">
+<td>Chinstrap</td>
+<td>58.0</td>
+<td>40.9</td>
+<td>48.83</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="각-종의-부리-길이-평균값을-기준으로-부리가-가장-긴-종을-다음과-같이-구했습니다." class="level3">
+<h3 class="anchored" data-anchor-id="각-종의-부리-길이-평균값을-기준으로-부리가-가장-긴-종을-다음과-같이-구했습니다.">각 종의 부리 길이 평균값을 기준으로 부리가 가장 긴 종을 다음과 같이 구했습니다.</h3>
+</section>
+<section id="chinstrap48.8-gentoo47.1-adelie38.5" class="level3">
+<h3 class="anchored" data-anchor-id="chinstrap48.8-gentoo47.1-adelie38.5">Chinstrap(48.8) &gt; Gentoo(47.1) &gt; Adelie(38.5)</h3>
+</section>
+</section>
+<section id="몸무게-구하기" class="level1">
+<h1>4-1. 몸무게 구하기</h1>
+<div id="9ceafd93" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>body_mass_max <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>].<span class="bu">max</span>()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>body_mass_min <span class="op">=</span> penguins.loc[penguins[<span class="st">"body_mass_g"</span>] <span class="op">&gt;</span> <span class="dv">0</span>, <span class="st">"body_mass_g"</span>].<span class="bu">min</span>()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>body_mass_mean <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="결과-값-4" class="level5">
+<h5 class="anchored" data-anchor-id="결과-값-4">결과 값</h5>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Value(g)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Max Body Mass</td>
+<td>6300.0</td>
+</tr>
+<tr class="even">
+<td>Min Body Mass</td>
+<td>2700.0</td>
+</tr>
+<tr class="odd">
+<td>Mean Body Mass</td>
+<td>4177.33</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="해당-결과를-통해-전체-펭귄-몸무게게-최대값6300-최소값2700-평균값4177을-알-수-있습니다." class="level3">
+<h3 class="anchored" data-anchor-id="해당-결과를-통해-전체-펭귄-몸무게게-최대값6300-최소값2700-평균값4177을-알-수-있습니다.">해당 결과를 통해 전체 펭귄 몸무게게 최대값(6300), 최소값(2700), 평균값(4177)을 알 수 있습니다.</h3>
+</section>
+</section>
+<section id="펭귄별-몸무게-구하기" class="level1">
+<h1>4-2. 펭귄별 몸무게 구하기</h1>
+<div id="ca891ddf" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>species_bill_length <span class="op">=</span> {}</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>species_body_mass <span class="op">=</span> {}</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique():  <span class="co"># 각 종별 반복</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    species_body_mass[species] <span class="op">=</span> {</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"max"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"body_mass_g"</span>].<span class="bu">max</span>(),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"min"</span>: penguins.loc[(penguins[<span class="st">"species"</span>] <span class="op">==</span> species) <span class="op">&amp;</span> (penguins[<span class="st">"body_mass_g"</span>] <span class="op">&gt;</span> <span class="dv">0</span>), <span class="st">"body_mass_g"</span>].<span class="bu">min</span>(),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"body_mass_g"</span>].mean()</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="결과-값-5" class="level5">
+<h5 class="anchored" data-anchor-id="결과-값-5">결과 값</h5>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Species</th>
+<th>Max Body Mass(g)</th>
+<th>Min Body Mass(g)</th>
+<th>Mean Body Mass(g)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Adelie</td>
+<td>4775.0</td>
+<td>2850.0</td>
+<td>3676.32</td>
+</tr>
+<tr class="even">
+<td>Gentoo</td>
+<td>6300.0</td>
+<td>3950.0</td>
+<td>5035.08</td>
+</tr>
+<tr class="odd">
+<td>Chinstrap</td>
+<td>4800.0</td>
+<td>2700.0</td>
+<td>3733.09</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="각-종의-몸무게-평균값을-기준으로-무게가-가장-무거운-종을-다음과-같이-구했습니다." class="level3">
+<h3 class="anchored" data-anchor-id="각-종의-몸무게-평균값을-기준으로-무게가-가장-무거운-종을-다음과-같이-구했습니다.">각 종의 몸무게 평균값을 기준으로 무게가 가장 무거운 종을 다음과 같이 구했습니다.</h3>
+</section>
+<section id="gentoo5035-chinstrap3733.09-adelie3676.32" class="level3">
+<h3 class="anchored" data-anchor-id="gentoo5035-chinstrap3733.09-adelie3676.32">Gentoo(5035) &gt; Chinstrap(3733.09) &gt; Adelie(3676.32)</h3>
+<section id="이번-분석은-가중치-없이-단순히-각-항목의-평균값을-비교하여-판단했습니다." class="level5">
+<h5 class="anchored" data-anchor-id="이번-분석은-가중치-없이-단순히-각-항목의-평균값을-비교하여-판단했습니다.">이번 분석은 가중치 없이 단순히 각 항목의 평균값을 비교하여 판단했습니다.</h5>
+</section>
+<section id="추후-전체-값과-종별-특성을-비교하는-값을-작성할-예정입니다." class="level5">
+<h5 class="anchored" data-anchor-id="추후-전체-값과-종별-특성을-비교하는-값을-작성할-예정입니다.">추후 전체 값과 종별 특성을 비교하는 값을 작성할 예정입니다.</h5>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

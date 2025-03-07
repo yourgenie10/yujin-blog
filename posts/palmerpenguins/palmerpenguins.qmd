@@ -6,10 +6,14 @@ categories: [news, code, analysis]
 image: "palmerpenguins.png"
 ---
 
+![](palmerpenguins.png){: width = 10% height=10%}
 
 
+### Intro
+Github에서 제공하는 Palmerpenguis 데이터를 활용하여 펭귄별 특징을 알아보았습니다.
 
-# 총정리
+
+### 결과 요약
 - Adelie: 부리 길이 짧음, 부리 깊이 보통, 날개 길이 짧음, 몸무게 가벼움
 - Chinstrap: 부리 길이 가장 김, 부리 깊이 보통, 날개 길이 중간, 몸무게 중간
 - Gentoo: 부리 길이 김, 부리 깊이 가장 얇음, 날개 길이 가장 긺, 몸무게 가장 무거움

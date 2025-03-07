@@ -1,0 +1,27 @@
+---
+title: "My First Qmd blog post"
+author: "Youjin. L"
+date: "2025-03-07"
+categories: [python, pandas, numpy]
+image: "image.jpg"
+---
+
+
+## 파이선 데이터 분석
+
+### 넘파이
+
+넘파이 패키지 불러오기
+
+```{python}
+import numpy as np
+
+a=np.array([3, 4, 5])
+```
+
+### 판다스
+
+판다스 패키지 불러오기기
+```{python}
+import pandas as pd
+```
