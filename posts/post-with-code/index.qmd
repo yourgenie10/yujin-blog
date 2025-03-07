@@ -1,8 +1,8 @@
 ---
-title: "Post With Code"
-author: "Harlow Malloc"
-date: "2025-03-06"
-categories: [news, code, analysis]
+title: "Palmerpenguins Data Analysis"
+author: "조익현, 정의주, 윤현재, 이유진"
+date: "2025-03-07"
+categories: [analysis, code]
 image: "image.jpg"
 ---
 
