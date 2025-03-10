@@ -9,7 +9,7 @@
 <meta name="author" content="조익현, 정의주, 윤현재, 이유진">
 <meta name="dcterms.date" content="2025-03-07">
 
-<title>Palmerpenguins Data Analysis – 우당탕당 Qmd 도전기</title>
+<title>Palmerpenguins Data Analysis – 우당탕탕 빅데이터 분석 도전기</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">우당탕당 Qmd 도전기</span>
+    <span class="navbar-title">우당탕탕 빅데이터 분석 도전기</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -146,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-title column-body">
       <h1 class="title">Palmerpenguins Data Analysis</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
+                <div class="quarto-category">python</div>
                 <div class="quarto-category">code</div>
                 <div class="quarto-category">analysis</div>
               </div>
@@ -185,35 +185,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p><img src="palmerpenguins.png" class="img-fluid">{: width = 10% height=10%}</p>
-<section id="intro" class="level3">
-<h3 class="anchored" data-anchor-id="intro">Intro</h3>
-<p>Github에서 제공하는 Palmerpenguis 데이터를 활용하여 펭귄별 특징을 알아보았습니다.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="palmerpenguins.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+<section id="서론" class="level2">
+<h2 class="anchored" data-anchor-id="서론">서론</h2>
+<p>GitHub에서 제공하는 Palmerpenguins 데이터를 활용하여 남극에 서식하는 펭귄들의 특징을 분석했습니다. 각 종별 신체적 특징과 서식지 분포를 비교하며, 부리 길이, 몸무게 등의 차이를 확인했습니다.</p>
 </section>
-<section id="결과-요약" class="level3">
-<h3 class="anchored" data-anchor-id="결과-요약">결과 요약</h3>
+<section id="주요-분석-결과" class="level2">
+<h2 class="anchored" data-anchor-id="주요-분석-결과">주요 분석 결과</h2>
 <ul>
-<li>Adelie: 부리 길이 짧음, 부리 깊이 보통, 날개 길이 짧음, 몸무게 가벼움</li>
-<li>Chinstrap: 부리 길이 가장 김, 부리 깊이 보통, 날개 길이 중간, 몸무게 중간</li>
-<li>Gentoo: 부리 길이 김, 부리 깊이 가장 얇음, 날개 길이 가장 긺, 몸무게 가장 무거움</li>
+<li>Adelie: 모든 섬(Biscoe, Dream, Torgersen)에서 발견됨. 부리 길이 짧음, 부리 깊이 보통, 날개 길이 짧음, 몸무게 가벼움 <br></li>
+<li>Chinstrap: Dream 섬에서만 서식함. 부리 길이 가장 김, 부리 깊이 보통, 날개 길이 중간, 몸무게 중간 <br></li>
+<li>Gentoo: Biscoe 섬에서만 서식함. 부리 길이 김, 부리 깊이 가장 얇음, 날개 길이 가장 긺, 몸무게 가장 무거움 <br></li>
 </ul>
 </section>
-<section id="분석-데이터" class="level1">
-<h1>분석 데이터</h1>
-<section id="데이터-로드" class="level5">
-<h5 class="anchored" data-anchor-id="데이터-로드">데이터 로드</h5>
-<div id="77a68a42" class="cell" data-execution_count="1">
+<section id="데이터-분석-과정" class="level2">
+<h2 class="anchored" data-anchor-id="데이터-분석-과정">데이터 분석 과정</h2>
+<section id="데이터-로드" class="level3">
+<h3 class="anchored" data-anchor-id="데이터-로드">1. 데이터 로드</h3>
+<details style="margin-left: 20px;">
+<summary>
+코드 보기
+</summary>
+<div id="b145c12a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</details>
 </section>
-<section id="nan-값-확인-및-제거" class="level5">
-<h5 class="anchored" data-anchor-id="nan-값-확인-및-제거">1. NaN 값 확인 및 제거</h5>
-<div id="a8aac8f8" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins.isna().<span class="bu">sum</span>() <span class="co"># NaN 값이 어디에 있는지 확인</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="데이터-전처리" class="level3">
+<h3 class="anchored" data-anchor-id="데이터-전처리">2. 데이터 전처리</h3>
+<p>데이터셋에서 일부 NaN 값이 존재하는 것을 확인했습니다.</p>
+<div id="59add791" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>species               0
 island                0
@@ -226,16 +236,34 @@ year                  0
 dtype: int64</code></pre>
 </div>
 </div>
-<p>각 항목별 NaN값이 있는 것을 확인하였습니다. 원할한 분석을 위해 NaN을 0과 X로 수정하였습니다</p>
-<div id="aa34ad18" class="cell" data-execution_count="3">
+<p>분석의 정확성을 높이기 위해 NaN 값을 <strong>수치형 변수는 0</strong>으로 <strong>범주형 변수는 X로 대체</strong>했습니다.</p>
+<details style="margin-left: 20px;">
+<summary>
+코드 보기
+</summary>
+<div id="885850b9" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"bill_length_mm"</span>].isna(), <span class="st">"bill_length_mm"</span>] <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"bill_depth_mm"</span>].isna(), <span class="st">"bill_depth_mm"</span>] <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"flipper_length_mm"</span>].isna(), <span class="st">"flipper_length_mm"</span>] <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"body_mass_g"</span>].isna(), <span class="st">"body_mass_g"</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"sex"</span>].isna(), <span class="st">"sex"</span>] <span class="op">=</span> <span class="st">"X"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>penguins.loc[penguins[<span class="st">"sex"</span>].isna(), <span class="st">"sex"</span>] <span class="op">=</span> <span class="st">"X"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>penguins.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>species              0
+island               0
+bill_length_mm       0
+bill_depth_mm        0
+flipper_length_mm    0
+body_mass_g          0
+sex                  0
+year                 0
+dtype: int64</code></pre>
 </div>
-<div id="1ec472b0" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins.isna().<span class="bu">sum</span>() <span class="co"># NaN 값 수정 확인</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<div id="fce5fd9e" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>penguins.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>species              0
 island               0
@@ -249,17 +277,22 @@ dtype: int64</code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="각-종별-펭귄수-구하기" class="level1">
-<h1>1. 각 종별 펭귄수 구하기</h1>
-<div id="388cae8d" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>species_counts <span class="op">=</span> {}</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique(): </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    species_counts[species] <span class="op">=</span> penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"species"</span>].shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="데이터-분석" class="level3">
+<h3 class="anchored" data-anchor-id="데이터-분석">3. 데이터 분석</h3>
+<section id="각-종별-펭귄수-구하기" class="level4">
+<h4 class="anchored" data-anchor-id="각-종별-펭귄수-구하기">1. 각 종별 펭귄수 구하기</h4>
+<details style="margin-left: 20px;">
+<summary>
+코드 보기
+</summary>
+<div id="5104e363" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>species_counts <span class="op">=</span> {}</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique(): </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    species_counts[species] <span class="op">=</span> penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"species"</span>].shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="결과-값" class="level6">
-<h6 class="anchored" data-anchor-id="결과-값">결과 값</h6>
+</details>
+<p>결과 값</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -282,22 +315,27 @@ dtype: int64</code></pre>
 </tr>
 </tbody>
 </table>
+<section id="요약" class="level5">
+<h5 class="anchored" data-anchor-id="요약">요약</h5>
+<p>펭귄 개체 수는 Adelie(152) &gt; Gentoo(124) &gt; Chinstrap(68) 순으로 분포하고 있음을 확인할 수 있습니다.</p>
 </section>
-<section id="해당-결과를-통해-adelie152-gentoo124-chinstrap68-순으로-펭귄이-많은-것을-알-수-있습니다." class="level3">
-<h3 class="anchored" data-anchor-id="해당-결과를-통해-adelie152-gentoo124-chinstrap68-순으로-펭귄이-많은-것을-알-수-있습니다.">해당 결과를 통해 Adelie(152), Gentoo(124), Chinstrap(68) 순으로 펭귄이 많은 것을 알 수 있습니다.</h3>
 </section>
-</section>
-<section id="각-섬별-펭귄수-구하기" class="level1">
-<h1>2-1. 각 섬별 펭귄수 구하기</h1>
-<div id="2ed1660c" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>island_list <span class="op">=</span> [<span class="st">"Biscoe"</span>, <span class="st">"Dream"</span>, <span class="st">"Torgersen"</span>]</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>island_counts <span class="op">=</span> {}</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> island <span class="kw">in</span> island_list:</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    island_counts[island] <span class="op">=</span> penguins.loc[penguins[<span class="st">"island"</span>] <span class="op">==</span> island, <span class="st">"island"</span>].shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="서식지별-펭귄-분포-및-특징-분석" class="level4">
+<h4 class="anchored" data-anchor-id="서식지별-펭귄-분포-및-특징-분석">2. 서식지별 펭귄 분포 및 특징 분석</h4>
+<p>2-1 서식지별 펭귄 개체 수 비교</p>
+<details style="margin-left: 20px;">
+<summary>
+코드 보기
+</summary>
+<div id="c2084fe2" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>island_list <span class="op">=</span> [<span class="st">"Biscoe"</span>, <span class="st">"Dream"</span>, <span class="st">"Torgersen"</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>island_counts <span class="op">=</span> {}</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> island <span class="kw">in</span> island_list:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    island_counts[island] <span class="op">=</span> penguins.loc[penguins[<span class="st">"island"</span>] <span class="op">==</span> island, <span class="st">"island"</span>].shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="결과-값-1" class="level6">
-<h6 class="anchored" data-anchor-id="결과-값-1">결과 값</h6>
+</details>
+<p>결과 값</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -320,25 +358,32 @@ dtype: int64</code></pre>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="해당-결과를-통해-biscoe168-dream124-torgersen52-순으로-펭귄이-많은-것을-알-수-있습니다." class="level3">
-<h3 class="anchored" data-anchor-id="해당-결과를-통해-biscoe168-dream124-torgersen52-순으로-펭귄이-많은-것을-알-수-있습니다.">해당 결과를 통해 Biscoe(168), Dream(124), Torgersen(52) 순으로 펭귄이 많은 것을 알 수 있습니다.</h3>
-</section>
-</section>
-<section id="각-섬별-펭귄-종류-구하기" class="level1">
-<h1>2-2. 각 섬별 펭귄 종류 구하기</h1>
-<div id="b96f381a" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>island_species_counts <span class="op">=</span> {}</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> island <span class="kw">in</span> penguins[<span class="st">"island"</span>].unique():  </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    island_species_counts[island] <span class="op">=</span> {}</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 각 종별 반복</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique():  </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        count <span class="op">=</span> penguins.loc[(penguins[<span class="st">"island"</span>] <span class="op">==</span> island) <span class="op">&amp;</span> (penguins[<span class="st">"species"</span>] <span class="op">==</span> species), <span class="st">"species"</span>].shape[<span class="dv">0</span>]</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        island_species_counts[island][species] <span class="op">=</span> count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>2-2. 서식지별 종별 개체 수 분석</p>
+<details style="margin-left: 20px;">
+<summary>
+코드 보기
+</summary>
+<div id="18438a92" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>island_species_counts <span class="op">=</span> {}</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> island <span class="kw">in</span> penguins[<span class="st">"island"</span>].unique():  </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    island_species_counts[island] <span class="op">=</span> {}</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 각 종별 반복</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique():  </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        count <span class="op">=</span> penguins.loc[(penguins[<span class="st">"island"</span>] <span class="op">==</span> island) <span class="op">&amp;</span> (penguins[<span class="st">"species"</span>] <span class="op">==</span> species), <span class="st">"species"</span>].shape[<span class="dv">0</span>]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        island_species_counts[island][species] <span class="op">=</span> count</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>island_species_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>{'Torgersen': {'Adelie': 52, 'Gentoo': 0, 'Chinstrap': 0},
+ 'Biscoe': {'Adelie': 44, 'Gentoo': 124, 'Chinstrap': 0},
+ 'Dream': {'Adelie': 56, 'Gentoo': 0, 'Chinstrap': 68}}</code></pre>
 </div>
+</div>
+</details>
+<p>결과 값</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -351,40 +396,45 @@ dtype: int64</code></pre>
 <tbody>
 <tr class="odd">
 <td>Biscoe</td>
-<td>40</td>
+<td>44</td>
 <td>0</td>
-<td>20</td>
+<td>124</td>
 </tr>
 <tr class="even">
 <td>Dream</td>
-<td>30</td>
-<td>10</td>
-<td>15</td>
+<td>56</td>
+<td>68</td>
+<td>0</td>
 </tr>
 <tr class="odd">
 <td>Torgersen</td>
-<td>25</td>
-<td>5</td>
+<td>52</td>
+<td>0</td>
 <td>0</td>
 </tr>
 </tbody>
 </table>
-<section id="adelie는-모든-지역torgersen52-biscoe44-dream52에-서식하고-있어-서식지가-분포되어-있는-것을-알-수-있습니다." class="level3">
-<h3 class="anchored" data-anchor-id="adelie는-모든-지역torgersen52-biscoe44-dream52에-서식하고-있어-서식지가-분포되어-있는-것을-알-수-있습니다.">Adelie는 모든 지역(Torgersen(52), Biscoe(44), Dream(52))에 서식하고 있어 서식지가 분포되어 있는 것을 알 수 있습니다.</h3>
+<section id="요약-1" class="level5">
+<h5 class="anchored" data-anchor-id="요약-1">요약</h5>
+<p>Adelie는 남극의 다양한 환경에서도 살아갈 수 있는 종이며,<br>
+Chinstrap과 Gentoo는 특정 섬에서만 발견되어 서식지가 제한적인 경향을 보였습니다.<br>
+Biscoe 섬이 가장 많은 펭귄이 서식하는 주요 서식지라는 점도 확인되었습니다.</p>
 </section>
-<section id="gentoo와-chinstrap은-각-biscoe와-dream에만-서식하는-것을-알-수-있습니다." class="level3">
-<h3 class="anchored" data-anchor-id="gentoo와-chinstrap은-각-biscoe와-dream에만-서식하는-것을-알-수-있습니다.">Gentoo와 Chinstrap은 각 Biscoe와 Dream에만 서식하는 것을 알 수 있습니다.</h3>
 </section>
-</section>
-<section id="부리-길이-구하기" class="level1">
-<h1>3-1. 부리 길이 구하기</h1>
-<div id="4d902dda" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>bill_length_max <span class="op">=</span> penguins[<span class="st">"bill_length_mm"</span>].<span class="bu">max</span>()</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bill_length_min <span class="op">=</span> penguins.loc[penguins[<span class="st">"bill_length_mm"</span>] <span class="op">&gt;</span> <span class="dv">0</span>, <span class="st">"bill_length_mm"</span>].<span class="bu">min</span>()</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>bill_length_mean <span class="op">=</span> penguins[<span class="st">"bill_length_mm"</span>].mean() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="펭귄-부리-특징-분석" class="level4">
+<h4 class="anchored" data-anchor-id="펭귄-부리-특징-분석">3. 펭귄 부리 특징 분석</h4>
+<p>3-1. 펭귄 부리 특성</p>
+<details style="margin-left: 20px;">
+<summary>
+코드 보기
+</summary>
+<div id="c1168adb" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>bill_length_max <span class="op">=</span> penguins[<span class="st">"bill_length_mm"</span>].<span class="bu">max</span>()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>bill_length_min <span class="op">=</span> penguins.loc[penguins[<span class="st">"bill_length_mm"</span>] <span class="op">&gt;</span> <span class="dv">0</span>, <span class="st">"bill_length_mm"</span>].<span class="bu">min</span>()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>bill_length_mean <span class="op">=</span> penguins[<span class="st">"bill_length_mm"</span>].mean() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="결과-값-2" class="level5">
-<h5 class="anchored" data-anchor-id="결과-값-2">결과 값</h5>
+</details>
+<p>결과 값</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -407,25 +457,32 @@ dtype: int64</code></pre>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="해당-결과를-통해-전체-펭귄-부리의-최대값59.6-최소값32.1-평균값43.6을-알-수-있습니다." class="level3">
-<h3 class="anchored" data-anchor-id="해당-결과를-통해-전체-펭귄-부리의-최대값59.6-최소값32.1-평균값43.6을-알-수-있습니다.">해당 결과를 통해 전체 펭귄 부리의 최대값(59.6), 최소값(32.1), 평균값(43.6)을 알 수 있습니다.</h3>
-</section>
-</section>
-<section id="펭귄별-부리-길이-구하기" class="level1">
-<h1>3-2. 펭귄별 부리 길이 구하기</h1>
-<div id="86c930f3" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>species_bill_length <span class="op">=</span> {}</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique(): </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    species_bill_length[species] <span class="op">=</span> {</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"max"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"bill_length_mm"</span>].<span class="bu">max</span>(),</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"min"</span>: penguins.loc[(penguins[<span class="st">"species"</span>] <span class="op">==</span> species) <span class="op">&amp;</span> (penguins[<span class="st">"bill_length_mm"</span>] <span class="op">&gt;</span> <span class="dv">0</span>), <span class="st">"bill_length_mm"</span>].<span class="bu">min</span>(),</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"bill_length_mm"</span>].mean()</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>3-2. 종별 부리 특성</p>
+<details style="margin-left: 20px;">
+<summary>
+코드 보기
+</summary>
+<div id="c20f6000" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>species_bill_length <span class="op">=</span> {}</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique(): </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    species_bill_length[species] <span class="op">=</span> {</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"max"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"bill_length_mm"</span>].<span class="bu">max</span>(),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"min"</span>: penguins.loc[(penguins[<span class="st">"species"</span>] <span class="op">==</span> species) <span class="op">&amp;</span> (penguins[<span class="st">"bill_length_mm"</span>] <span class="op">&gt;</span> <span class="dv">0</span>), <span class="st">"bill_length_mm"</span>].<span class="bu">min</span>(),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"bill_length_mm"</span>].mean()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>species_bill_length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>{'Adelie': {'max': 46.0, 'min': 32.1, 'mean': np.float64(38.536184210526315)},
+ 'Gentoo': {'max': 59.6, 'min': 40.9, 'mean': np.float64(47.12177419354838)},
+ 'Chinstrap': {'max': 58.0,
+  'min': 40.9,
+  'mean': np.float64(48.83382352941177)}}</code></pre>
 </div>
-<section id="결과-값-3" class="level6">
-<h6 class="anchored" data-anchor-id="결과-값-3">결과 값</h6>
+</div>
+</details>
+<p>결과 값</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -456,23 +513,26 @@ dtype: int64</code></pre>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="각-종의-부리-길이-평균값을-기준으로-부리가-가장-긴-종을-다음과-같이-구했습니다." class="level3">
-<h3 class="anchored" data-anchor-id="각-종의-부리-길이-평균값을-기준으로-부리가-가장-긴-종을-다음과-같이-구했습니다.">각 종의 부리 길이 평균값을 기준으로 부리가 가장 긴 종을 다음과 같이 구했습니다.</h3>
-</section>
-<section id="chinstrap48.8-gentoo47.1-adelie38.5" class="level3">
-<h3 class="anchored" data-anchor-id="chinstrap48.8-gentoo47.1-adelie38.5">Chinstrap(48.8) &gt; Gentoo(47.1) &gt; Adelie(38.5)</h3>
+<section id="요약-2" class="level5">
+<h5 class="anchored" data-anchor-id="요약-2">요약</h5>
+<p>분석 결과, 펭귄의 부리 길이는 최소 32.1mm에서 최대 59.6mm까지 분포하며, 평균값은 43.6mm로 확인되었습니다. 종별 비교를 통해 Chinstrap &gt; Gentoo &gt; Adelie 순으로 부리가 긴 것을 확인했습니다.</p>
+<p>Chinstrap 종이 평균값 기준 가장 긴 부리를 가진 종이며, Gentoo 종은 최대 부리 길이를 가진 개체가 존재하며, 평균값도 높은 편입니다. Adelie 종은 전체적으로 부리가 짧은 편이며, 최소값을 기록한 종입니다.</p>
 </section>
 </section>
-<section id="몸무게-구하기" class="level1">
-<h1>4-1. 몸무게 구하기</h1>
-<div id="26128fce" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>body_mass_max <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>].<span class="bu">max</span>()</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>body_mass_min <span class="op">=</span> penguins.loc[penguins[<span class="st">"body_mass_g"</span>] <span class="op">&gt;</span> <span class="dv">0</span>, <span class="st">"body_mass_g"</span>].<span class="bu">min</span>()</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>body_mass_mean <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="펭귄-몸무게-특징" class="level4">
+<h4 class="anchored" data-anchor-id="펭귄-몸무게-특징">4. 펭귄 몸무게 특징</h4>
+<p>4-1 펭귄 몸무게 특징징</p>
+<details style="margin-left: 20px;">
+<summary>
+코드 보기
+</summary>
+<div id="59445232" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>body_mass_max <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>].<span class="bu">max</span>()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>body_mass_min <span class="op">=</span> penguins.loc[penguins[<span class="st">"body_mass_g"</span>] <span class="op">&gt;</span> <span class="dv">0</span>, <span class="st">"body_mass_g"</span>].<span class="bu">min</span>()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>body_mass_mean <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="결과-값-4" class="level5">
-<h5 class="anchored" data-anchor-id="결과-값-4">결과 값</h5>
+</details>
+<p>결과 값</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -495,27 +555,25 @@ dtype: int64</code></pre>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="해당-결과를-통해-전체-펭귄-몸무게게-최대값6300-최소값2700-평균값4177을-알-수-있습니다." class="level3">
-<h3 class="anchored" data-anchor-id="해당-결과를-통해-전체-펭귄-몸무게게-최대값6300-최소값2700-평균값4177을-알-수-있습니다.">해당 결과를 통해 전체 펭귄 몸무게게 최대값(6300), 최소값(2700), 평균값(4177)을 알 수 있습니다.</h3>
-</section>
-</section>
-<section id="펭귄별-몸무게-구하기" class="level1">
-<h1>4-2. 펭귄별 몸무게 구하기</h1>
-<div id="0a9c3a12" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>species_bill_length <span class="op">=</span> {}</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>species_body_mass <span class="op">=</span> {}</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique():  <span class="co"># 각 종별 반복</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    species_body_mass[species] <span class="op">=</span> {</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"max"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"body_mass_g"</span>].<span class="bu">max</span>(),</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"min"</span>: penguins.loc[(penguins[<span class="st">"species"</span>] <span class="op">==</span> species) <span class="op">&amp;</span> (penguins[<span class="st">"body_mass_g"</span>] <span class="op">&gt;</span> <span class="dv">0</span>), <span class="st">"body_mass_g"</span>].<span class="bu">min</span>(),</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"body_mass_g"</span>].mean()</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>4-2. 종별 몸무게 특징</p>
+<details style="margin-left: 20px;">
+<summary>
+코드 보기
+</summary>
+<div id="8359694f" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>species_bill_length <span class="op">=</span> {}</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>species_body_mass <span class="op">=</span> {}</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> species <span class="kw">in</span> penguins[<span class="st">"species"</span>].unique():  <span class="co"># 각 종별 반복</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    species_body_mass[species] <span class="op">=</span> {</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"max"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"body_mass_g"</span>].<span class="bu">max</span>(),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"min"</span>: penguins.loc[(penguins[<span class="st">"species"</span>] <span class="op">==</span> species) <span class="op">&amp;</span> (penguins[<span class="st">"body_mass_g"</span>] <span class="op">&gt;</span> <span class="dv">0</span>), <span class="st">"body_mass_g"</span>].<span class="bu">min</span>(),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean"</span>: penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> species, <span class="st">"body_mass_g"</span>].mean()</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="결과-값-5" class="level5">
-<h5 class="anchored" data-anchor-id="결과-값-5">결과 값</h5>
+</details>
+<p>결과 값</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -546,17 +604,37 @@ dtype: int64</code></pre>
 </tr>
 </tbody>
 </table>
+<p>##### 요약</p>
+<p>펭귄의 몸무게는 최소 2700g에서 최대 6300g까지 분포하며, 평균적으로 4177.33인 것을 알 수 있습니다.</p>
+<p>종별로 비교했을 때, Gentoo &gt; Chinstrap &gt; Adelie 순으로 몸무게가 무거운 것을 확인 할 수 있었습니다.</p>
+<p>결론적으로, Gentoo 종은 평균적으로 가장 무거운 펭귄이며, 최대 몸무게를 기록한 개체도 포함하고 있습니다. Adelie 종은 가장 가벼운 종으로, 체중 범위도 가장 낮은 쪽에 분포합니다. Chinstrap 종은 Adelie보다 약간 무겁지만, Gentoo에 비하면 몸무게가 가벼운 편입니다.</p>
 </section>
-<section id="각-종의-몸무게-평균값을-기준으로-무게가-가장-무거운-종을-다음과-같이-구했습니다." class="level3">
-<h3 class="anchored" data-anchor-id="각-종의-몸무게-평균값을-기준으로-무게가-가장-무거운-종을-다음과-같이-구했습니다.">각 종의 몸무게 평균값을 기준으로 무게가 가장 무거운 종을 다음과 같이 구했습니다.</h3>
 </section>
-<section id="gentoo5035-chinstrap3733.09-adelie3676.32" class="level3">
-<h3 class="anchored" data-anchor-id="gentoo5035-chinstrap3733.09-adelie3676.32">Gentoo(5035) &gt; Chinstrap(3733.09) &gt; Adelie(3676.32)</h3>
-<section id="이번-분석은-가중치-없이-단순히-각-항목의-평균값을-비교하여-판단했습니다." class="level5">
-<h5 class="anchored" data-anchor-id="이번-분석은-가중치-없이-단순히-각-항목의-평균값을-비교하여-판단했습니다.">이번 분석은 가중치 없이 단순히 각 항목의 평균값을 비교하여 판단했습니다.</h5>
-</section>
-<section id="추후-전체-값과-종별-특성을-비교하는-값을-작성할-예정입니다." class="level5">
-<h5 class="anchored" data-anchor-id="추후-전체-값과-종별-특성을-비교하는-값을-작성할-예정입니다.">추후 전체 값과 종별 특성을 비교하는 값을 작성할 예정입니다.</h5>
+<section id="결론" class="level3">
+<h3 class="anchored" data-anchor-id="결론">4. 결론</h3>
+<p>이번 분석을 통해 남극에 서식하는 펭귄들의 개체 수, 부리 길이, 몸무게 차이 및 서식지 분포를 비교하였습니다.</p>
+<ul>
+<li><strong>개체 수 및 서식지 분포</strong></li>
+</ul>
+<p>펭귄 개체 수는 Adelie(152) &gt; Gentoo(124) &gt; Chinstrap(68) 순으로 많음을 확인하였습니다.</p>
+<p>Adelie 종은 가장 많은 개체 수를 보이며, Biscoe, Dream, Torgersen 섬 등 다양한 환경에서 서식하는 특징을 보였습니다. Gentoo 종은 Biscoe 섬에서만 발견되었으며, 특정 서식지에서만 서식하는 경향을 보였습니다. Chinstrap 종은 Dream 섬에서만 서식하며, 서식 환경이 제한적인 특성을 나타내었습니다. Biscoe 섬이 전체적으로 가장 많은 펭귄이 서식하는 주요 서식지라는 점도 확인되었습니다.</p>
+<ul>
+<li><strong>부리 길이 비교</strong></li>
+</ul>
+<p>펭귄의 부리 길이는 최소 32.1mm ~ 최대 59.6mm 범위로 분포하며, 평균값은 43.6mm로 확인되었습니다. 종별로 비교했을 때 Chinstrap &gt; Gentoo &gt; Adelie 순으로 부리가 긴 경향을 보였습니다.</p>
+<p>Chinstrap 종이 평균적으로 가장 긴 부리를 가지며, 평균 48.8mm로 확인되었습니다. Gentoo 종은 개체별 차이가 크며, 최대 59.6mm로 가장 긴 개체가 존재하였습니다. Adelie 종은 전체적으로 부리가 짧은 편이며, 최소값(32.1mm)을 기록한 종이었습니다. 이러한 차이는 종별 먹이 섭취 방식과 환경 적응력과 관련될 가능성이 있으며, 추가적인 연구가 필요해 보입니다.</p>
+<ul>
+<li><strong>몸무게 비교</strong></li>
+</ul>
+<p>펭귄의 몸무게는 최소 2700g ~ 최대 6300g 사이에서 분포하며, 평균값은 4177.33g으로 확인되었습니다. 종별 비교 결과, Gentoo &gt; Chinstrap &gt; Adelie 순으로 무거운 경향을 보였습니다.</p>
+<p>Gentoo 종은 평균 5035.08g으로 가장 무거운 종이며, 최대 6300g의 개체가 포함되어 있습니다. Chinstrap 종은 평균 3733.09g으로, Adelie보다 약간 무거운 특성을 보였습니다. Adelie 종은 평균 3676.32g으로 가장 가벼운 종이며, 최소 2850g의 개체도 포함되어 있었습니다.</p>
+<section id="종합-결론" class="level4">
+<h4 class="anchored" data-anchor-id="종합-결론">종합 결론</h4>
+<p>분석 결과, Adelie는 다양한 환경에서 서식하는 종이며, Gentoo와 Chinstrap은 특정 섬에서만 발견되는 경향을 보이는 종임을 확인하였습니다. 부리 길이와 몸무게에서도 종별로 유의미한 차이가 있으며, 이는 먹이 섭취 방식, 환경 적응력, 서식지 특성과 밀접한 관련이 있을 가능성이 높습니다. 추후 연구에서는 기후 변화, 서식지 조건, 개체군 이동 패턴 등과의 관계를 추가적으로 분석할 필요가 있습니다.</p>
+<ul>
+<li><p>참고</p>
+<p>각 종별 개체 수(Adelie 152마리, Gentoo 124마리, Chinstrap 68마리)가 다르지만, 이번 분석에서는 개체 수 차이에 따른 가중치를 적용하지 않고 단순 평균값을 기준으로 비교하였습니다. 이는 종별 평균적인 특징 차이를 직관적으로 파악하기 위한 목적이며, 개체 수에 따른 세부적인 영향은 추가적인 분석을 통해 고려할 수 있을 것입니다.</p></li>
+</ul>
 
 
 </section>

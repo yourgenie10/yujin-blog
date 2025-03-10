@@ -1,6 +1,6 @@
 ---
-title: "Palmerpenguins Data Analysis"
-author: "조익현, 정의주, 윤현재, 이유진"
+title: "Post whih Code"
+author: "-"
 date: "2025-03-07"
 categories: [analysis, code]
 image: "image.jpg"

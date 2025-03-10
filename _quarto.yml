@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "우당탕당 Qmd 도전기"
+  title: "우당탕탕 빅데이터 분석 도전기"
   navbar:
     right:
       - about.qmd

@@ -1,8 +1,8 @@
 {
-  "hash": "734fa65127fb7f7c279c6002e5ecfc5f",
+  "hash": "2cd4d55e2803ffd8660d55d95d3630c3",
   "result": {
     "engine": "jupyter",
-    "markdown": "---\ntitle: \"Post With Code\"\nauthor: \"Harlow Malloc\"\ndate: \"2025-03-06\"\ncategories: [news, code, analysis]\nimage: \"image.jpg\"\n---\n\n\nThis is a post with executable code.\n\n::: {#35023082 .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\n\na = np.array(10)\na\n```\n\n::: {.cell-output .cell-output-display execution_count=1}\n```\narray(10)\n```\n:::\n:::\n\n\n",
+    "markdown": "---\ntitle: \"Post whih Code\"\nauthor: \"-\"\ndate: \"2025-03-07\"\ncategories: [analysis, code]\nimage: \"image.jpg\"\n---\n\n\nThis is a post with executable code.\n\n::: {#6f01b594 .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\n\na = np.array(10)\na\n```\n\n::: {.cell-output .cell-output-display execution_count=2}\n```\narray(10)\n```\n:::\n:::\n\n\n",
     "supporting": [
       "index_files"
     ],
